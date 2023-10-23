@@ -2,7 +2,7 @@ import { useState } from "react";
 import Glass from "../../common/GlassCard";
 import { useGlobalState } from "../../providers/Global";
 import { useSocketProvider } from "../../providers/Socket";
-import { decodeJSON, getEntity } from "../../utils";
+import { capitalizeFirstLetter, decodeJSON, getEntity } from "../../utils";
 import { Box, useDisclosure, Image } from "@chakra-ui/react";
 
 const PrusaMiniCore = ({ variant }: { variant: "modal" | "page" }) => {
@@ -63,6 +63,8 @@ const PrusaMiniCore = ({ variant }: { variant: "modal" | "page" }) => {
     }
   });
 
+  console.log(prusaMiniImage);
+
   return (
     <Box display="flex" flexDir="column">
       <Box display="flex" flexDir="row">
@@ -72,9 +74,9 @@ const PrusaMiniCore = ({ variant }: { variant: "modal" | "page" }) => {
             fontSize={variant === "modal" ? "48px" : "24px"}
             style={{ lineHeight: variant === "modal" ? "48px" : "24px" }}
           >
-            {prusaMini?.state === "idle"
-              ? "Idle"
-              : `${Number(prusaMiniProgress?.state)?.toFixed(0)}%`}
+            {prusaMini?.state === "printing"
+              ? `${Number(prusaMiniProgress?.state)?.toFixed(0)}%`
+              : capitalizeFirstLetter(prusaMini?.state)}
           </Glass.CardMetric>
           {prusaMini?.state === "printing" && (
             <Glass.CardHeader>

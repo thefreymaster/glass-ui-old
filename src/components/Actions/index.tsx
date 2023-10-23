@@ -1,4 +1,4 @@
-import { Box, Center, Divider } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { useGlobalState } from "../../providers/Global";
 import { getEntity } from "../../utils";
 import LightButton from "../LightButton";
@@ -29,9 +29,6 @@ const Actions = () => {
           </LightButton>
         );
       })}
-      <Center height="100px">
-        <Divider orientation="vertical" />
-      </Center>
       <Reload />
     </Box>
   );

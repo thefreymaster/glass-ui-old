@@ -45,7 +45,7 @@ export const Network = () => {
         <Glass.CardHeader>Network</Glass.CardHeader>
         <Glass.CardMetric fontSize="24px" style={{ lineHeight: "20px" }}>
           {isOnline ? (
-            <Box color="green.400">Online</Box>
+            <Box color="green.300">Online</Box>
           ) : (
             <Box color="red.500">Offline since {since}</Box>
           )}

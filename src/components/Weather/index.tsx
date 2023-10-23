@@ -87,14 +87,20 @@ const Wind = ({
   fontSize?: string;
 }) => {
   return (
-    <Box display="flex" flexDir="column">
+    <Box display="flex" flexDir="row" justifyContent="center">
       <Box
         display="flex"
         flexDir="row"
         alignItems="center"
         justifyContent="center"
+        paddingRight="10px"
       >
-        <WindSpeedMetric fontWeight={getWindFontWeight(Number(windSpeed))} fontSize={fontSize}>{windSpeed}</WindSpeedMetric>
+        <WindSpeedMetric
+          fontWeight={getWindFontWeight(Number(windSpeed))}
+          fontSize={fontSize}
+        >
+          {windSpeed}
+        </WindSpeedMetric>
         <Text marginLeft="5px" color="whiteAlpha.800">
           mph
         </Text>
@@ -195,7 +201,6 @@ const WeatherCore = ({ variant }: { variant: "modal" | "page" }) => {
 
   return (
     <>
-      <Glass.CardHeader>Current Weather</Glass.CardHeader>
       <Box
         display="flex"
         flexDir="row"

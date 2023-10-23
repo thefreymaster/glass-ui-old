@@ -22,12 +22,15 @@ const Thermostat = ({
   thermostatId: string;
   name: string;
 }) => {
+  const summerModeId = "input_boolean.summermode";
   const { entities } = useGlobalState();
   const socket = useSocketProvider();
 
   const thermostatEntity = getEntity(entities, thermostatId);
+  const summerModeEntity = getEntity(entities, summerModeId);
 
   const [thermostat, setThermostat] = React.useState(thermostatEntity);
+  const [summerMode, setSummerMode] = React.useState(summerModeEntity);
 
   socket.addEventListener("message", (e: any) => {
     const data = decodeJSON(e.data);
@@ -35,7 +38,13 @@ const Thermostat = ({
     if (thermostatId === data?.event?.data?.entity_id) {
       setThermostat(data?.event?.data?.new_state);
     }
+
+    if (summerModeId === data?.event?.data?.entity_id) {
+      setSummerMode(data?.event?.data?.new_state);
+    }
   });
+
+  console.log(thermostat);
 
   const hvacAction = thermostat?.attributes?.hvac_action;
 
@@ -93,7 +102,7 @@ const Thermostat = ({
         <Glass.CardMetric
           style={{
             opacity:
-              hvacAction === "cooling" || hvacAction === "idle" ? 1 : 0.4,
+              hvacAction === "cooling" || hvacAction === "idle" || summerMode?.state === "off" ? 1 : 0.4,
             height: "120px",
             padding: "5px",
             alignItems: "center",
@@ -105,44 +114,49 @@ const Thermostat = ({
           }}
         >
           <Glass.CardFooter style={{ lineHeight: 0 }}>{name}</Glass.CardFooter>
-          {thermostat?.attributes?.temperature?.toFixed(0)}°
+          {summerMode?.state === "on" ? thermostat?.attributes?.temperature?.toFixed(0) : thermostat?.attributes?.current_temperature?.toFixed(0)}°
           <Glass.CardFooter style={{ lineHeight: 0 }}>
-            {thermostat?.attributes?.current_temperature?.toFixed(0)}°{" "}
-            {capitalizeFirstLetter(thermostat?.attributes?.hvac_action)}
+            {summerMode?.state === "on" && `${thermostat?.attributes?.current_temperature?.toFixed(0)}°`}
+            {summerMode?.state === "on" && capitalizeFirstLetter(thermostat?.attributes?.hvac_action)}
           </Glass.CardFooter>
         </Glass.CardMetric>
         <Box flexGrow="1" />
-        <Box display="flex" flexDir="column">
-          <Button
-            size="lg"
-            onClick={handleTemperatureIncrease}
-            isDisabled={hvacAction === "off"}
-            borderRadius="0px 10px 0px 0px"
-            padding="0px 20px"
-          >
-            <AiOutlineArrowUp />
-          </Button>
-          {/* <Divider /> */}
-          <Button
-            size="lg"
-            onClick={handleThermostatToggle}
-            borderRadius="0px 0px 0px 0px"
-            padding="0px 20px"
-          >
-            <AiOutlinePoweroff />
-            {/* <BsSnow /> */}
-          </Button>
-          {/* <Divider /> */}
-          <Button
-            size="lg"
-            onClick={handleTemperatureDecrease}
-            isDisabled={hvacAction === "off"}
-            borderRadius="0px 0px 10px 0px"
-            padding="0px 20px"
-          >
-            <AiOutlineArrowDown />
-          </Button>
-        </Box>
+
+        {summerMode?.state === "on" && (
+          <>
+            <Box display="flex" flexDir="column">
+              <Button
+                size="lg"
+                onClick={handleTemperatureIncrease}
+                isDisabled={hvacAction === "off"}
+                borderRadius="0px 10px 0px 0px"
+                padding="0px 20px"
+              >
+                <AiOutlineArrowUp />
+              </Button>
+              {/* <Divider /> */}
+              <Button
+                size="lg"
+                onClick={handleThermostatToggle}
+                borderRadius="0px 0px 0px 0px"
+                padding="0px 20px"
+              >
+                <AiOutlinePoweroff />
+                {/* <BsSnow /> */}
+              </Button>
+              {/* <Divider /> */}
+              <Button
+                size="lg"
+                onClick={handleTemperatureDecrease}
+                isDisabled={hvacAction === "off"}
+                borderRadius="0px 0px 10px 0px"
+                padding="0px 20px"
+              >
+                <AiOutlineArrowDown />
+              </Button>
+            </Box>
+          </>
+        )}
       </Box>
     </Glass.Card>
   );
