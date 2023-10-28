@@ -52,6 +52,7 @@ export const GlobalStateProvider = ({
             // @ts-ignore
             entities,
             config,
+            // @ts-ignore
             theme,
             isOnline: online,
           }}
