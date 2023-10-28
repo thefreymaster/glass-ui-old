@@ -15,6 +15,9 @@ import {
 // import { BsSnow } from "react-icons/bs";
 import { postService } from "../../api/homeassistant";
 
+// @ts-ignore
+import { MechanicalCounter } from "mechanical-counter";
+
 const Thermostat = ({
   thermostatId,
   name,
@@ -43,8 +46,6 @@ const Thermostat = ({
       setSummerMode(data?.event?.data?.new_state);
     }
   });
-
-  console.log(thermostat);
 
   const hvacAction = thermostat?.attributes?.hvac_action;
 
@@ -102,7 +103,11 @@ const Thermostat = ({
         <Glass.CardMetric
           style={{
             opacity:
-              hvacAction === "cooling" || hvacAction === "idle" || summerMode?.state === "off" ? 1 : 0.4,
+              hvacAction === "cooling" ||
+              hvacAction === "idle" ||
+              summerMode?.state === "off"
+                ? 1
+                : 0.4,
             height: "120px",
             padding: "5px",
             alignItems: "center",
@@ -114,10 +119,21 @@ const Thermostat = ({
           }}
         >
           <Glass.CardFooter style={{ lineHeight: 0 }}>{name}</Glass.CardFooter>
-          {summerMode?.state === "on" ? thermostat?.attributes?.temperature?.toFixed(0) : thermostat?.attributes?.current_temperature?.toFixed(0)}°
+          {summerMode?.state === "on" ? (
+            <MechanicalCounter
+              text={`${thermostat?.attributes?.temperature?.toFixed(0)}°`}
+            />
+          ) : (
+            <MechanicalCounter
+              text={`${thermostat?.attributes?.current_temperature?.toFixed(0)}°`}
+            />
+          )}
+          
           <Glass.CardFooter style={{ lineHeight: 0 }}>
-            {summerMode?.state === "on" && `${thermostat?.attributes?.current_temperature?.toFixed(0)}°`}
-            {summerMode?.state === "on" && capitalizeFirstLetter(thermostat?.attributes?.hvac_action)}
+            {summerMode?.state === "on" &&
+              `${thermostat?.attributes?.current_temperature?.toFixed(0)}°`}
+            {summerMode?.state === "on" &&
+              capitalizeFirstLetter(thermostat?.attributes?.hvac_action)}
           </Glass.CardFooter>
         </Glass.CardMetric>
         <Box flexGrow="1" />

@@ -15,8 +15,9 @@ import * as WeatherIcons from "react-icons/wi";
 import { useSocketProvider } from "../../providers/Socket";
 import React from "react";
 import { isDesktop, isTablet } from "react-device-detect";
-// import { possibleWeatherConditions } from "../../constants/weather";
-// import { subscribeToChange } from "../../api/homeassistant";
+
+// @ts-ignore
+import { MechanicalCounter } from "mechanical-counter";
 
 const getCurrentConditions = (weather: any) => {
   return weather.attributes.forecast[0];
@@ -35,7 +36,7 @@ const Temperature = styled(Text)`
   display: flex;
   color: white;
   justify-content: center;
-  text-align: center;
+  align-items: flex-end;
 `;
 
 const WindSpeedMetric = styled(Text)`
@@ -52,7 +53,7 @@ const WindSpeed = ({
   metric,
   fontSize,
 }: {
-  children: string;
+  children: React.ReactNode;
   metric: string;
   fontSize?: string;
 }) => {
@@ -212,7 +213,9 @@ const WeatherCore = ({ variant }: { variant: "modal" | "page" }) => {
             <Box flexGrow="1" />
             <Box display="flex" flexDir="column">
               <WindSpeed metric="mph">
-                {weather?.attributes?.wind_speed?.toFixed(0)}
+                <MechanicalCounter
+                  text={weather?.attributes?.wind_speed?.toFixed(0)}
+                />
               </WindSpeed>
               <Conditions>
                 {getDegToCompass(weather?.attributes?.wind_bearing)}
@@ -225,7 +228,9 @@ const WeatherCore = ({ variant }: { variant: "modal" | "page" }) => {
         )}
         <Box flexGrow="1" />
         <Box display="flex" flexDir="column">
-          <Temperature>{weather?.attributes?.temperature}°</Temperature>
+          <Temperature>
+            <MechanicalCounter text={weather?.attributes?.temperature} />°
+          </Temperature>
           <Conditions>
             {conditions?.templow}° / {conditions?.temperature}°
           </Conditions>

@@ -3,9 +3,8 @@ import Glass from "../../common/GlassCard";
 import { useDisclosure } from "@chakra-ui/react";
 import { isDesktop, isTablet } from "react-device-detect";
 
-// const UserTimer = () => {
-
-// }
+// @ts-ignore
+import { MechanicalCounter } from "mechanical-counter";
 
 const TimeCore = ({
   includeSeconds,
@@ -47,9 +46,12 @@ const TimeCore = ({
         variant === "modal" && (isDesktop || isTablet) ? "140px" : "100px"
       }
       color="white"
-      style={{ textAlign: "center", lineHeight: "100px" }}
+      style={{
+        lineHeight: "100px",
+      }}
+      justifyContent="center"
     >
-      {currentTimeFormatted}
+      <MechanicalCounter text={currentTimeFormatted} />
     </Glass.CardMetric>
   );
 };

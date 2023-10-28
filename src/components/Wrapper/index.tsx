@@ -1,32 +1,43 @@
 import React from "react";
 
 import styled from "styled-components";
-import Jasper from "../../assets/jasper.jpeg";
-import LakeLouise from "../../assets/lakeLouise.jpeg";
-import MadieraSouth from "../../assets/madeiraSouth.jpeg";
-import MadeiraTop from "../../assets/madeiraTop.jpeg";
-import MadeiraWest from "../../assets/madeiraWest.jpeg";
-// import Chipmunk from "../../assets/chipmunk.jpeg";
-import Florida from "../../assets/florida.jpeg";
-import Glacier from "../../assets/glacier.jpeg";
-import Glacier2 from "../../assets/glacier2.jpeg";
-import Jasper2 from "../../assets/jasper2.jpeg";
-import LakeLouise2 from "../../assets/lakeLouise2.jpeg";
-// import Ram from "../../assets/ram.jpeg";
+import Jasper from "../../assets/nature/jasper.jpeg";
+import LakeLouise from "../../assets/nature/lakeLouise.jpeg";
+import MadieraSouth from "../../assets/nature/madeiraSouth.jpeg";
+import MadeiraTop from "../../assets/nature/madeiraTop.jpeg";
+import MadeiraWest from "../../assets/nature/madeiraWest.jpeg";
+import Florida from "../../assets/nature/florida.jpeg";
+import Glacier from "../../assets/nature/glacier.jpeg";
+import Glacier2 from "../../assets/nature/glacier2.jpeg";
+import Jasper2 from "../../assets/nature/jasper2.jpeg";
+import LakeLouise2 from "../../assets/nature/lakeLouise2.jpeg";
 
-const backgrounds = [
+import Space1 from "../../assets/space/space1.jpeg";
+import Space2 from "../../assets/space/space2.jpeg";
+import Space3 from "../../assets/space/space3.jpeg";
+import Space4 from "../../assets/space/space4.jpeg";
+import Space5 from "../../assets/space/space5.jpeg";
+import { useGlobalState } from "../../providers/Global";
+
+const backgroundsNature = [
   Jasper,
   LakeLouise,
   MadeiraWest,
   MadieraSouth,
   MadeiraTop,
-  // Chipmunk,
   Florida,
   Glacier,
   Glacier2,
   Jasper2,
   LakeLouise2,
-  // Ram,
+];
+
+const backgroundsSpace = [
+  Space1,
+  Space2,
+  Space3,
+  Space4,
+  Space5,
 ];
 
 const Style = styled.div<{ background: string; minHeight: string }>`
@@ -42,16 +53,21 @@ const Style = styled.div<{ background: string; minHeight: string }>`
   transition: background-image 30s ease-in-out;
 `;
 
-const getRandomBackground = () => {
-  return backgrounds[Math.floor(Math.random() * backgrounds.length)];
+const getRandomBackground = ({theme}: {theme: "Space" | "Nature"}) => {
+  if(theme === "Space"){
+    return backgroundsSpace[Math.floor(Math.random() * backgroundsSpace.length)];
+  }
+  return backgroundsNature[Math.floor(Math.random() * backgroundsSpace.length)];
 };
 
 const Wrapper = ({ children }: { children: React.ReactNode }) => {
-  const [background, setBackground] = React.useState(getRandomBackground());
+  const { theme } = useGlobalState();
+
+  const [background, setBackground] = React.useState(getRandomBackground({theme}));
 
   React.useLayoutEffect(() => {
     setTimeout(() => {
-      setBackground(getRandomBackground());
+      setBackground(getRandomBackground({theme}));
     }, 3600000);
   }, [background]);
 

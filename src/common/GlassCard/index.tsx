@@ -89,11 +89,13 @@ const CardMetric = ({
   fontSize,
   color,
   style,
+  justifyContent,
 }: {
   children: React.ReactNode;
   fontSize?: string;
   color?: string;
   style?: any;
+  justifyContent?: string;
 }) => {
   return (
     <Text
@@ -103,6 +105,9 @@ const CardMetric = ({
       color={color ?? "whiteAlpha.800"}
       lineHeight="60px"
       transition="opacity 500ms ease-in-out, border-color 500ms ease-in-out"
+      display="flex"
+      justifyContent={justifyContent}
+      alignItems="center"
       {...style}
     >
       {children}

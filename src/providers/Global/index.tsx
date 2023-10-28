@@ -2,11 +2,18 @@ import React from "react";
 import { fetchConfig, fetchEntities } from "../../api/homeassistant";
 // import mockEntities from "../../../mock.json";
 import { Detector } from "react-detect-offline";
+import { getEntity } from "../../utils";
 
-const GlobalContext = React.createContext<{ entities: any[]; config: any, isOnline: boolean }>({
+const GlobalContext = React.createContext<{
+  entities: any[];
+  config: any;
+  isOnline: boolean;
+  theme: "Space" | "Nature";
+}>({
   entities: [],
   config: null,
   isOnline: true,
+  theme: "Space",
 });
 
 export const useGlobalState = () => React.useContext(GlobalContext);
@@ -19,11 +26,14 @@ export const GlobalStateProvider = ({
 }) => {
   const [entities, setEntities] = React.useState();
   const [config, setConfig] = React.useState();
+  const [theme, setTheme] = React.useState("Space");
 
   React.useEffect(() => {
     const getEntities = async () => {
       const entities = await fetchEntities();
-      setEntities(entities.data);
+      setEntities(entities?.data);
+      const haTheme = getEntity(entities?.data, "input_select.glassuitheme");
+      setTheme(haTheme?.state);
     };
 
     const getConfig = async () => {
@@ -40,9 +50,9 @@ export const GlobalStateProvider = ({
         <GlobalContext.Provider
           value={{
             // @ts-ignore
-            // entities: mockEntities,
             entities,
             config,
+            theme,
             isOnline: online,
           }}
         >
