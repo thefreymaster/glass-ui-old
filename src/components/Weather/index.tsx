@@ -16,9 +16,6 @@ import { useSocketProvider } from "../../providers/Socket";
 import React from "react";
 import { isDesktop, isTablet } from "react-device-detect";
 
-// @ts-ignore
-import { MechanicalCounter } from "mechanical-counter";
-
 const getCurrentConditions = (weather: any) => {
   return weather.attributes.forecast[0];
 };
@@ -213,9 +210,7 @@ const WeatherCore = ({ variant }: { variant: "modal" | "page" }) => {
             <Box flexGrow="1" />
             <Box display="flex" flexDir="column">
               <WindSpeed metric="mph">
-                <MechanicalCounter
-                  text={weather?.attributes?.wind_speed?.toFixed(0)}
-                />
+                {weather?.attributes?.wind_speed?.toFixed(0)}
               </WindSpeed>
               <Conditions>
                 {getDegToCompass(weather?.attributes?.wind_bearing)}
@@ -229,7 +224,7 @@ const WeatherCore = ({ variant }: { variant: "modal" | "page" }) => {
         <Box flexGrow="1" />
         <Box display="flex" flexDir="column">
           <Temperature>
-            <MechanicalCounter text={weather?.attributes?.temperature} />°
+            {weather?.attributes?.temperature}°
           </Temperature>
           <Conditions>
             {conditions?.templow}° / {conditions?.temperature}°

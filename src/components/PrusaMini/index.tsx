@@ -5,9 +5,6 @@ import { useSocketProvider } from "../../providers/Socket";
 import { capitalizeFirstLetter, decodeJSON, getEntity } from "../../utils";
 import { Box, useDisclosure, Image } from "@chakra-ui/react";
 
-// @ts-ignore
-import { MechanicalCounter } from "mechanical-counter";
-
 const PrusaMiniCore = ({ variant }: { variant: "modal" | "page" }) => {
   const { entities } = useGlobalState();
   const socket = useSocketProvider();
@@ -76,7 +73,7 @@ const PrusaMiniCore = ({ variant }: { variant: "modal" | "page" }) => {
             style={{ lineHeight: variant === "modal" ? "48px" : "24px" }}
           >
             {prusaMini?.state === "printing"
-              ? <MechanicalCounter text={`${Number(prusaMiniProgress?.state)}%`} />
+              ? `${Number(prusaMiniProgress?.state)}%`
               : capitalizeFirstLetter(prusaMini?.state)}
           </Glass.CardMetric>
           {prusaMini?.state === "printing" && (

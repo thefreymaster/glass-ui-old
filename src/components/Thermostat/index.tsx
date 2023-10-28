@@ -15,9 +15,6 @@ import {
 // import { BsSnow } from "react-icons/bs";
 import { postService } from "../../api/homeassistant";
 
-// @ts-ignore
-import { MechanicalCounter } from "mechanical-counter";
-
 const Thermostat = ({
   thermostatId,
   name,
@@ -120,13 +117,9 @@ const Thermostat = ({
         >
           <Glass.CardFooter style={{ lineHeight: 0 }}>{name}</Glass.CardFooter>
           {summerMode?.state === "on" ? (
-            <MechanicalCounter
-              text={`${thermostat?.attributes?.temperature?.toFixed(0)}°`}
-            />
+            `${thermostat?.attributes?.temperature?.toFixed(0)}°`
           ) : (
-            <MechanicalCounter
-              text={`${thermostat?.attributes?.current_temperature?.toFixed(0)}°`}
-            />
+            `${thermostat?.attributes?.current_temperature?.toFixed(0)}°`
           )}
           
           <Glass.CardFooter style={{ lineHeight: 0 }}>
