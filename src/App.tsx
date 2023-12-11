@@ -16,8 +16,16 @@ import { Timer } from "./components/Timer";
 import { isDesktop, isTablet } from "react-device-detect";
 import { Network } from "./components/Network";
 import { OfflineBanner } from "./components/OfflineBanner";
+import React from "react";
 
 function App() {
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      window.location.reload();
+    }, 3600000);
+  }, []);
+
   return (
     <>
       <Wrapper>
