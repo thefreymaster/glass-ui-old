@@ -22,6 +22,7 @@ const DateStamp = () => {
         }}
       >
         {currentDate.toLocaleDateString("en", {
+          weekday: 'long',
           month: "long",
           day: "numeric",
         })}

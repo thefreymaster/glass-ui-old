@@ -5,15 +5,18 @@ import App from "./App.tsx";
 import "./index.css";
 import { GlobalStateProvider } from "./providers/Global";
 import { SocketProvider } from "./providers/Socket/index.tsx";
+import ErrorBoundary from "./components/ErrorBoundry/index.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <SocketProvider>
-      <GlobalStateProvider>
-        <ChakraProvider>
-          <App />
-        </ChakraProvider>
-      </GlobalStateProvider>
-    </SocketProvider>
+    <ErrorBoundary>
+      <SocketProvider>
+        <GlobalStateProvider>
+          <ChakraProvider>
+            <App />
+          </ChakraProvider>
+        </GlobalStateProvider>
+      </SocketProvider>
+    </ErrorBoundary>
   </React.StrictMode>
 );

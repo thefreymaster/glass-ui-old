@@ -17,7 +17,10 @@ import React from "react";
 import { isDesktop, isTablet } from "react-device-detect";
 
 const getCurrentConditions = (weather: any) => {
-  return weather.attributes.forecast[0];
+  if(weather?.attributes?.forecast){
+    return weather?.attributes?.forecast[0];
+  }
+  return null;
 };
 
 const WindDirection = styled(WeatherIcons.WiWindDeg)<{ rotate: number }>`
@@ -155,7 +158,7 @@ const Forecast = ({
       <Wind
         fontSize="24px"
         windSpeed={windSpeed}
-        windBearing={forecast.wind_bearing}
+        windBearing={forecast?.wind_bearing}
       />
     </Box>
   );
@@ -196,6 +199,10 @@ const WeatherCore = ({ variant }: { variant: "modal" | "page" }) => {
       setWeather(data?.event?.data?.new_state);
     }
   });
+
+  if(!weather){
+    return null;
+  }
 
   return (
     <>
@@ -245,13 +252,13 @@ const WeatherCore = ({ variant }: { variant: "modal" | "page" }) => {
       </Box>
 
       <Box display="flex" flexDir="row" paddingBottom="20px">
-        <Forecast forecast={weather.attributes.forecast[1]} />
-        <Forecast forecast={weather.attributes.forecast[2]} />
+        <Forecast forecast={weather?.attributes?.forecast?.[1]} />
+        <Forecast forecast={weather?.attributes?.forecast?.[2]} />
         {variant === "modal" && (isDesktop || isTablet) && (
           <>
-            <Forecast forecast={weather.attributes.forecast[3]} />
-            <Forecast forecast={weather.attributes.forecast[4]} />
-            <Forecast forecast={weather.attributes.forecast[5]} />
+            <Forecast forecast={weather?.attributes?.forecast?.[3]} />
+            <Forecast forecast={weather?.attributes?.forecast?.[4]} />
+            <Forecast forecast={weather?.attributes?.forecast?.[5]} />
           </>
         )}
       </Box>
