@@ -12,7 +12,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const whitelist = [
   "http://localhost:4000",
   "http://localhost:5173",
-  "http://10.23.23.190:3000",
+  "http://10.23.23.190:4000",
   "http://homeassistant.local:8123"
 ];
 
