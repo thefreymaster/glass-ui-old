@@ -32,7 +32,7 @@ const StatusBar = () => {
     <Style>
       <StatusIndicator isActive={isAPIActive}></StatusIndicator> API
       <StatusIndicator isActive={config?.state === "RUNNING"} /> Home Assistant | v{config.version}
-      <StatusIndicator isActive={config?.state === "RUNNING"} /> GlassUI | v1.1.5
+      <StatusIndicator isActive={config?.state === "RUNNING"} /> GlassUI | v1.1.6
       {/* <StatusIndicator isActive /> Hue
       <StatusIndicator isActive /> Lutron
       <StatusIndicator isActive /> Unraid */}
