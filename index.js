@@ -35,6 +35,10 @@ app.get("/api", cors(), (req, res) => {
   res.send("API root");
 });
 
+app.get('/manifest.json', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'public', 'manifest.json'));
+});
+
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "dist", "index.html"));
 });

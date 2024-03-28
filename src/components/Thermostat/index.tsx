@@ -15,6 +15,65 @@ import {
 // import { BsSnow } from "react-icons/bs";
 import { postService } from "../../api/homeassistant";
 
+export const TempInformation = ({
+  name,
+  entityId,
+}: {
+  name: string;
+  entityId: string;
+}) => {
+  const { entities } = useGlobalState();
+  const socket = useSocketProvider();
+  const temperatureEntity = getEntity(entities, entityId);
+
+  const [temperature, setTemperature] = React.useState(temperatureEntity);
+
+  socket.addEventListener("message", (e: any) => {
+    const data = decodeJSON(e.data);
+
+    if (entityId === data?.event?.data?.entity_id) {
+      setTemperature(data?.event?.data?.new_state);
+    }
+  });
+
+  return (
+    <Glass.Card
+      width="100%"
+      display="flex"
+      alignItems="center"
+      justifyContent="flex-end"
+      flexDirection="column"
+      padding="0px"
+      backgroundColor="#0000002e"
+    >
+      <Box
+        display="flex"
+        flexDir="row"
+        alignItems="center"
+        justifyContent="center"
+        minWidth="100%"
+      >
+        <Glass.CardMetric
+          style={{
+            opacity: 1,
+            height: "120px",
+            padding: "5px",
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: "20px 0px 0px 20px",
+            color: "#fff",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <Glass.CardFooter style={{ lineHeight: 0 }}>{name}</Glass.CardFooter>
+          {`${Number(temperature.state)?.toFixed(0)}°`}
+        </Glass.CardMetric>
+      </Box>
+    </Glass.Card>
+  );
+};
+
 const Thermostat = ({
   thermostatId,
   name,
@@ -116,12 +175,10 @@ const Thermostat = ({
           }}
         >
           <Glass.CardFooter style={{ lineHeight: 0 }}>{name}</Glass.CardFooter>
-          {summerMode?.state === "on" ? (
-            `${thermostat?.attributes?.temperature?.toFixed(0)}°`
-          ) : (
-            `${thermostat?.attributes?.current_temperature?.toFixed(0)}°`
-          )}
-          
+          {summerMode?.state === "on"
+            ? `${thermostat?.attributes?.temperature?.toFixed(0)}°`
+            : `${thermostat?.attributes?.current_temperature?.toFixed(0)}°`}
+
           <Glass.CardFooter style={{ lineHeight: 0 }}>
             {summerMode?.state === "on" &&
               `${thermostat?.attributes?.current_temperature?.toFixed(0)}°`}

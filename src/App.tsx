@@ -7,7 +7,7 @@ import Weather from "./components/Weather";
 import Time from "./components/Time";
 import AverageTemperature from "./components/AverageTemperature";
 import AverageHumidity from "./components/AverageHumidity";
-import Thermostat from "./components/Thermostat";
+import Thermostat, { TempInformation } from "./components/Thermostat";
 import DateStamp from "./components/Date";
 import PrusaMini from "./components/PrusaMini";
 import { getDevice } from "./utils";
@@ -80,6 +80,10 @@ function App() {
             flexDirection="column"
             height="auto"
           >
+            <TempInformation
+              entityId="sensor.basement_motion_sensor_temperature"
+              name="Basement"
+            />
             <Thermostat
               thermostatId="climate.first_floor_thermostat"
               name="First"
