@@ -7,7 +7,7 @@ import Weather from "./components/Weather";
 import Time from "./components/Time";
 import AverageTemperature from "./components/AverageTemperature";
 import AverageHumidity from "./components/AverageHumidity";
-import Thermostat, { TempInformation } from "./components/Thermostat";
+import Thermostat from "./components/Thermostat";
 import DateStamp from "./components/Date";
 import PrusaMini from "./components/PrusaMini";
 import { getDevice } from "./utils";

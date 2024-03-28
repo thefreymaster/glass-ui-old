@@ -1,6 +1,6 @@
 import Glass from "../GlassCard";
 import { useGlobalState } from "../../providers/Global";
-import { calculateAverage, decodeJSON, getEntity } from "../../utils";
+import { decodeJSON, getEntity } from "../../utils";
 import { useSocketProvider } from "../../providers/Socket";
 import React from "react";
 
