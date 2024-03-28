@@ -49,6 +49,10 @@ const TimeCore = ({
       justifyContent="center"
     >
       {currentTimeFormatted}
+      {/* <AnimatedNumbers
+        includeComma
+        animateToNumber={3}
+      /> */}
     </Glass.CardMetric>
   );
 };

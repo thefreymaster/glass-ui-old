@@ -3,6 +3,7 @@ import StatusIndicator from "../StatusIndicator";
 import React from "react";
 import { fetchAPIStatus } from "../../api/homeassistant";
 import { useGlobalState } from "../../providers/Global";
+import packageJson from '../../../package.json';
 
 const Style = styled.div`
   height: 30px;
@@ -32,7 +33,7 @@ const StatusBar = () => {
     <Style>
       <StatusIndicator isActive={isAPIActive}></StatusIndicator> API
       <StatusIndicator isActive={config?.state === "RUNNING"} /> Home Assistant | v{config.version}
-      <StatusIndicator isActive={config?.state === "RUNNING"} /> GlassUI | v1.1.6
+      <StatusIndicator isActive={config?.state === "RUNNING"} /> GlassUI | v{packageJson.version}
       {/* <StatusIndicator isActive /> Hue
       <StatusIndicator isActive /> Lutron
       <StatusIndicator isActive /> Unraid */}

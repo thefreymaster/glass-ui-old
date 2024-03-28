@@ -271,7 +271,7 @@ const Weather = () => {
 
   return (
     <Glass.Card onClick={onOpen}>
-      <Glass.CardModal isOpen={isOpen} onClose={onClose}>
+      <Glass.CardModal isOpen={isOpen} onClose={onClose} bodyJustifyContent="center">
         <WeatherModal />
       </Glass.CardModal>
       <WeatherCore variant="page" />

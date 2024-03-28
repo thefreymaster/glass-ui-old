@@ -129,7 +129,7 @@ export const CardModal = ({
   bodyJustifyContent?: string;
 }) => {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size={size ?? "4xl"}>
+    <Modal isOpen={isOpen} onClose={onClose} size={size ?? "full"}>
       <ModalOverlay />
       <ModalContent backgroundColor="#0000002b" backdropFilter="blur(20px)">
         <ModalCloseButton />
