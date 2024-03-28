@@ -17,6 +17,7 @@ import { isDesktop, isTablet } from "react-device-detect";
 import { Network } from "./components/Network";
 import { OfflineBanner } from "./components/OfflineBanner";
 import React from "react";
+import GenericEntityCard from "./common/GenericEntityCard";
 
 function App() {
 
@@ -80,7 +81,7 @@ function App() {
             flexDirection="column"
             height="auto"
           >
-            <TempInformation
+            <GenericEntityCard
               entityId="sensor.basement_motion_sensor_temperature"
               name="Basement"
             />
