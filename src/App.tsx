@@ -103,7 +103,7 @@ function App() {
             <Timer entityId="timer.washertimer" title="Washer" />
             <Timer entityId="timer.driertimer" title="Drier" />
             <Network />
-            {!isDesktop && !isTablet && <Camera />}
+            {!isDesktop && !isTablet && <Camera entityId="camera.front_porch_high" />}
           </Container>
         </Container>
         <Container

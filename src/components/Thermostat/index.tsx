@@ -9,9 +9,7 @@ import { capitalizeFirstLetter, decodeJSON, getEntity } from "../../utils";
 import { Box, Button } from "@chakra-ui/react";
 import {
   AiOutlinePoweroff,
-  AiOutlineArrowUp,
 } from "react-icons/ai";
-// import { BsSnow } from "react-icons/bs";
 import { postService } from "../../api/homeassistant";
 import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
 
