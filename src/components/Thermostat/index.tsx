@@ -10,10 +10,10 @@ import { Box, Button } from "@chakra-ui/react";
 import {
   AiOutlinePoweroff,
   AiOutlineArrowUp,
-  AiOutlineArrowDown,
 } from "react-icons/ai";
 // import { BsSnow } from "react-icons/bs";
 import { postService } from "../../api/homeassistant";
+import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
 
 export const TempInformation = ({
   name,
@@ -103,7 +103,7 @@ const Thermostat = ({
     }
   });
 
-  const hvacAction = thermostat?.attributes?.hvac_action;
+  const hvacAction = thermostat?.state;
 
   const handleTemperatureIncrease = async () => {
     postService({
@@ -133,7 +133,8 @@ const Thermostat = ({
       service: "set_hvac_mode",
       entityId: thermostatId,
       body: {
-        hvac_mode: hvacAction === "off" ? "cool" : "off",
+        hvac_mode: hvacAction === "off" ? "auto" : "off",
+        entity_id: thermostatId,
       },
     });
   };
@@ -183,7 +184,7 @@ const Thermostat = ({
             {summerMode?.state === "on" &&
               `${thermostat?.attributes?.current_temperature?.toFixed(0)}°`}
             {summerMode?.state === "on" &&
-              capitalizeFirstLetter(thermostat?.attributes?.hvac_action)}
+              capitalizeFirstLetter(hvacAction)}
           </Glass.CardFooter>
         </Glass.CardMetric>
         <Box flexGrow="1" />
@@ -198,7 +199,7 @@ const Thermostat = ({
                 borderRadius="0px 10px 0px 0px"
                 padding="0px 20px"
               >
-                <AiOutlineArrowUp />
+                <TiArrowSortedUp />
               </Button>
               {/* <Divider /> */}
               <Button
@@ -218,7 +219,7 @@ const Thermostat = ({
                 borderRadius="0px 0px 10px 0px"
                 padding="0px 20px"
               >
-                <AiOutlineArrowDown />
+                <TiArrowSortedDown />
               </Button>
             </Box>
           </>

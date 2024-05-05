@@ -86,17 +86,17 @@ function App() {
               name="Basement"
             />
             <Thermostat
-              thermostatId="climate.first_floor_thermostat"
-              name="First"
+              thermostatId="climate.150633093168965_climate"
+              name="First Floor"
             />
-            <Thermostat
+            {/* <Thermostat
               thermostatId="climate.second_floor_thermostat"
               name="Second"
             />
             <Thermostat
               thermostatId="climate.third_floor_thermostat"
               name="Third"
-            />
+            /> */}
             <PrusaMini />
             <Timer entityId="timer.washertimer" title="Washer" />
             <Timer entityId="timer.driertimer" title="Drier" />

@@ -17,7 +17,7 @@ import React from "react";
 import { isDesktop, isTablet } from "react-device-detect";
 
 const getCurrentConditions = (weather: any) => {
-  if(weather?.attributes?.forecast){
+  if (weather?.attributes?.forecast) {
     return weather?.attributes?.forecast[0];
   }
   return null;
@@ -200,7 +200,7 @@ const WeatherCore = ({ variant }: { variant: "modal" | "page" }) => {
     }
   });
 
-  if(!weather){
+  if (!weather) {
     return null;
   }
 
@@ -213,7 +213,14 @@ const WeatherCore = ({ variant }: { variant: "modal" | "page" }) => {
         justifyContent="center"
       >
         {variant === "modal" && (
-          <>
+          <Box
+            display="flex"
+            flexDir="column"
+            // minW={variant === "modal" ? "33%" : "50%"}
+            // backdropBlur="blur(20px)"
+            // backgroundColor="#0000002e"
+            // borderRadius="4px"
+          >
             <Box flexGrow="1" />
             <Box display="flex" flexDir="column">
               <WindSpeed metric="mph">
@@ -226,13 +233,20 @@ const WeatherCore = ({ variant }: { variant: "modal" | "page" }) => {
                 <WindDirection rotate={weather?.attributes?.wind_bearing} />
               </Conditions>
             </Box>
-          </>
+          </Box>
         )}
         <Box flexGrow="1" />
-        <Box display="flex" flexDir="column">
-          <Temperature>
-            {weather?.attributes?.temperature}°
-          </Temperature>
+        <Box
+          display="flex"
+          flexDir="column"
+          minW={variant === "modal" ? "33%" : "50%"}
+          // backdropBlur="blur(20px)"
+          // backgroundColor="#0000002e"
+          // borderRadius="4px"
+          // flexGrow="1"
+          // margin="5px"
+        >
+          <Temperature>{weather?.attributes?.temperature}°</Temperature>
           <Conditions>
             {conditions?.templow}° / {conditions?.temperature}°
           </Conditions>
@@ -242,7 +256,16 @@ const WeatherCore = ({ variant }: { variant: "modal" | "page" }) => {
           </Conditions>
         </Box>
         <Box flexGrow="1" />
-        <Box display="flex" flexDir="column">
+        <Box
+          display="flex"
+          flexDir="column"
+          minW={variant === "modal" ? "33%" : "50%"}
+          // backdropBlur="blur(20px)"
+          // backgroundColor="#0000002e"
+          // borderRadius="4px"
+          // h="100%"
+          // flexGrow="1"
+        >
           <Conditions fontSize="110px">
             <ForcastIcon weatherState={weather?.state} />
           </Conditions>
@@ -271,7 +294,11 @@ const Weather = () => {
 
   return (
     <Glass.Card onClick={onOpen}>
-      <Glass.CardModal isOpen={isOpen} onClose={onClose} bodyJustifyContent="center">
+      <Glass.CardModal
+        isOpen={isOpen}
+        onClose={onClose}
+        bodyJustifyContent="center"
+      >
         <WeatherModal />
       </Glass.CardModal>
       <WeatherCore variant="page" />
