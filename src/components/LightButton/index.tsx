@@ -1,4 +1,4 @@
-import { Button, Text } from "@chakra-ui/react";
+import { Button, Text, Spinner } from "@chakra-ui/react";
 import { BsLightbulbOff, BsLightbulb } from "react-icons/bs";
 import styled from "styled-components";
 import { useSocketProvider } from "../../providers/Socket";
@@ -38,6 +38,7 @@ const LightButton = ({
   const socket = useSocketProvider();
 
   const [isLightOn, setIsLightOn] = React.useState(isOn);
+  const [isLoading, setIsLoading] = React.useState(false);
   const buttonRef = React.useRef();
 
   socket.addEventListener("message", (e: any) => {
@@ -63,7 +64,7 @@ const LightButton = ({
       transform="scale(1)"
       _hover={{
         backgroundColor: "#ffffff29",
-        transform: "scale(1.05)",
+        // transform: "scale(1.05)",
       }}
       _active={{
         backgroundColor: "#ffffff4f",
@@ -72,14 +73,18 @@ const LightButton = ({
       _focus={{
         backgroundColor: "#00000052",
       }}
-      onClick={() => {
-          postStateChange(isLightOn === "on" ? "turn_off" : "turn_on", id);
+      onClick={async () => {
+        setIsLoading(true);
+        await postStateChange(isLightOn === "on" ? "turn_off" : "turn_on", id);
 
-        // @ts-ignore
-        buttonRef?.current?.blur();
+        setTimeout(() => {
+          setIsLoading(false);
+          // @ts-ignore
+          buttonRef.current.blur();
+        }, 100);
       }}
     >
-      <LightIcon isOn={isLightOn} />
+      {isLoading ? <Spinner /> : <LightIcon isOn={isLightOn} />}
       <Text
         paddingTop="10px"
         fontFamily="'Sofia Sans', sans-serif"

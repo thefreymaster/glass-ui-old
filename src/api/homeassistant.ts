@@ -32,7 +32,7 @@ export const fetchConfig = async () => {
 };
 
 export const postStateChange = async (service: string, entityId: string) => {
-  await axios({
+  return await axios({
     method: "post",
     url: `http://homeassistant.local:8123/api/services/light/${service}`,
     headers: config.headers,

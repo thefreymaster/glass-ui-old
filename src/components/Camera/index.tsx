@@ -7,7 +7,7 @@ import Glass from "../../common/GlassCard";
 import { Image } from "@chakra-ui/react";
 // import ReactPlayer from 'react-player'
 
-export const Camera = () => {
+export const Camera = ({ entityId }: { entityId: string }) => {
   const { entities } = useGlobalState();
   const cameraEntity = getEntity(entities, "camera.front_porch_high");
 
@@ -18,7 +18,7 @@ export const Camera = () => {
   socket.addEventListener("message", (e: any) => {
     const data = decodeJSON(e.data);
 
-    if ("camera.front_porch_high" === data?.event?.data?.entity_id) {
+    if (entityId === data?.event?.data?.entity_id) {
       setCamera(data?.event?.data?.new_state);
     }
   });

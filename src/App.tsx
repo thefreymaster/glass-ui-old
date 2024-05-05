@@ -20,7 +20,6 @@ import React from "react";
 import GenericEntityCard from "./common/GenericEntityCard";
 
 function App() {
-
   React.useEffect(() => {
     setTimeout(() => {
       window.location.reload();
@@ -61,14 +60,17 @@ function App() {
               <AverageHumidity />
             </Container>
             {(isTablet || isDesktop) && (
-              <Container
-                flex="0"
-                flexWrap="wrap"
-                flexDirection="row"
-                minWidth="calc(100%)"
-              >
-                <Camera />
-              </Container>
+              <>
+                <Container
+                  flex="0"
+                  flexWrap="wrap"
+                  flexDirection="row"
+                  minWidth="calc(50%)"
+                >
+                  <Camera entityId="camera.front_porch_high" />
+                  {/* <Camera /> */}
+                </Container>
+              </>
             )}
           </Container>
           <Container
