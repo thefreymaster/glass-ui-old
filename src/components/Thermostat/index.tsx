@@ -137,6 +137,8 @@ const Thermostat = ({
     });
   };
 
+  console.log(hvacAction)
+
   return (
     <Glass.Card
       width="100%"
@@ -158,8 +160,8 @@ const Thermostat = ({
         <Glass.CardMetric
           style={{
             opacity:
+              hvacAction === "auto" ||
               hvacAction === "cooling" ||
-              hvacAction === "idle" ||
               summerMode?.state === "off"
                 ? 1
                 : 0.4,

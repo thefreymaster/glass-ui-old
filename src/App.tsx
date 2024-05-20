@@ -91,19 +91,21 @@ function App() {
               thermostatId="climate.150633093168965_climate"
               name="First Floor"
             />
-            {/* <Thermostat
-              thermostatId="climate.second_floor_thermostat"
-              name="Second"
+            <Thermostat
+              thermostatId="climate.150633093572243_climate"
+              name="Second Floor"
             />
             <Thermostat
-              thermostatId="climate.third_floor_thermostat"
-              name="Third"
-            /> */}
+              thermostatId="climate.151732604741875_climate"
+              name="Third Floor"
+            />
             <PrusaMini />
             <Timer entityId="timer.washertimer" title="Washer" />
             <Timer entityId="timer.driertimer" title="Drier" />
             <Network />
-            {!isDesktop && !isTablet && <Camera entityId="camera.front_porch_high" />}
+            {!isDesktop && !isTablet && (
+              <Camera entityId="camera.front_porch_high" />
+            )}
           </Container>
         </Container>
         <Container
