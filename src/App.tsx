@@ -72,6 +72,14 @@ function App() {
                 </Container>
               </>
             )}
+            <Container flex="0" flexWrap="wrap" minWidth="100%">
+              <PrusaMini />
+              <Network />
+            </Container>
+            <Container flex="0" flexWrap="wrap" minWidth="100%">
+              <Timer entityId="timer.washertimer" title="Washer" />
+              <Timer entityId="timer.driertimer" title="Drier" />
+            </Container>
           </Container>
           <Container
             minWidth={getDevice({
@@ -99,10 +107,6 @@ function App() {
               thermostatId="climate.151732604741875_climate"
               name="Third Floor"
             />
-            <PrusaMini />
-            <Timer entityId="timer.washertimer" title="Washer" />
-            <Timer entityId="timer.driertimer" title="Drier" />
-            <Network />
             {!isDesktop && !isTablet && (
               <Camera entityId="camera.front_porch_high" />
             )}
